@@ -153,7 +153,7 @@ class _LoginPageState extends BaseState<LoginPage> implements LoginView {
 
   @override
   void loginDidSucceed() {
-    print("///////// LOGIN SUCCESS");
+    showToast("Login Success");
   }
 
 }

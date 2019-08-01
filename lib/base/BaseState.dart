@@ -16,22 +16,22 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> implements B
 
   @override
   void onNetworkUnavailable() {
-    mAlertService.showToast(context, "No Internet Connection !");
+    mAlertService.showAlert(context, "No Internet Connection !", "Please check your internet connection and try again.");
   }
 
   @override
   void onNetworkCallStarted(String loadingMsg) {
-    mAlertService.showToast(context, "Started");
+    showToast("Started");
   }
 
   @override
   void onNetworkCallEnded() {
-    mAlertService.showToast(context, "Ended");
+    showToast("Ended");
   }
 
   @override
   void onUserIsUnauthorized() {
-    mAlertService.showToast(context, "Unauthorized");
+    showToast("Unauthorized");
   }
 
   @override
@@ -47,6 +47,10 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> implements B
   void changeFocus(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  void showToast(String message){
+    mAlertService.showToast(context, message);
   }
 
 }

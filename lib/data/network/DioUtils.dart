@@ -1,40 +1,62 @@
-import 'package:blockpatter/base/BaseView.dart';
+import 'package:blockpatter/data/network/APIs.dart';
+import 'package:blockpatter/base/BaseApiResponse.dart';
 import 'package:blockpatter/data/network/ConnectivityUtils.dart';
 import 'package:blockpatter/data/pref/Keys.dart';
 import 'package:blockpatter/data/pref/PreferenceManager.dart';
 import 'package:dio/dio.dart';
+import 'package:blockpatter/base/BaseView.dart';
 
-//enum RequestMethod { GET, POST, PUT }
+enum RequestMethod { GET, POST }
 
-class DioUtils<V extends BaseView> {
-  Dio _dio;
-  V mView;
+class DioUtils {
 
-  Dio getInstance() {
+  static Dio _dio = Dio();
+
+  static Future<BaseApiResponse> reqeust(url, { method: RequestMethod.GET, formData }) async {
+    try {
+      Response response;
+      switch (method) {
+        case RequestMethod.GET:
+          response = await _getDio().get(url);
+          break;
+        case RequestMethod.POST:
+          response = formData != null ? await _getDio().post(url, data: formData) : await _getDio().post(url);
+          break;
+      }
+      return BaseApiResponse.onSuccess(response.data);
+    } on DioError catch (error) {
+      if(error.type == DioErrorType.RESPONSE &&  error.response.statusCode == 422){
+        return BaseApiResponse.onFormDataError(error.response.data);
+      }else{
+        return BaseApiResponse.onDioError(error);
+      }
+    }
+  }
+
+  static Dio _getDio() {
     if (_dio == null) {
       _dio = Dio();
-      setUpInterceptor();
     }
+    _addInterceptor();
     return _dio;
   }
 
-  setUpInterceptor() {
+  static _addInterceptor() {
     final int maxCharactersPerLine = 200;
-    _dio.interceptors
-        .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
+    _dio.interceptors.add(InterceptorsWrapper(
+        onRequest: (RequestOptions options) async {
       if (!await ConnectivityUtils.sharedInstance.isConnectionAvailable()) {
         throw NoConnectivityException;
       } else {
         // Dio Configuration >>>>>>
-        //  options.baseUrl = "http://www.mocky.io"; // It can be empty....
+        options.baseUrl = APIs.BASE_URL; // It can be empty....
         options.connectTimeout = 5000; //5s
-        options.receiveTimeout = 3000; //3s
+        options.receiveTimeout = 5000; //5s
 
         // Attaching Access token with request from Shared Preference >>>>>>
         _dio.interceptors.requestLock.lock();
-        String token = await PreferenceManager.sharedInstance
-            .getString(Keys.ACCESS_TOKEN.toString());
-        options.headers["token"] = "Bearer $token}";
+        String token = await PreferenceManager.sharedInstance.getString(Keys.ACCESS_TOKEN.toString());
+        options.headers["Authorization"] = "Bearer $token";
         _dio.interceptors.requestLock.unlock();
 
         // Printing Log before Sending Request >>>>>>>
@@ -64,17 +86,7 @@ class DioUtils<V extends BaseView> {
       print("<-- END HTTP");
       return response;
     }, onError: (DioError error) {
-       return error;
+      return error;
     }));
   }
-
-//  Future<Response> post(String url) async {
-//    return await getInstance().post(url);
-//  }
-//
-//  Future<Response> get(String url) async {
-//    return await getInstance().get(url);
-//  }
-//
-//  void put() {}
 }

@@ -11,7 +11,6 @@ class ConnectivityUtils {
     }
     return false;
   }
-
 }
 
 class NoConnectivityException implements Exception{
