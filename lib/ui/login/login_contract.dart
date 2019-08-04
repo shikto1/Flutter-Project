@@ -26,8 +26,7 @@ class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresen
     mView.onNetworkCallEnded();
     switch(response.status){
       case Status.SUCCESS:
-        LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-        print(loginResponse.name);
+       // LoginResponse loginResponse = LoginResponse.fromJson(response.data);
         mView.loginDidSucceed();
         break;
 

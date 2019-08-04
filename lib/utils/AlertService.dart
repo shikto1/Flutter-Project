@@ -4,6 +4,7 @@ import 'package:toast/toast.dart';
 enum ConfirmAction { CANCEL, ACCEPT }
 
 class AlertService {
+
   void showToast(BuildContext context, String msg) {
     Toast.show(
       msg,
@@ -14,7 +15,7 @@ class AlertService {
     );
   }
 
-  void showSnakBar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
+  void showSnackBar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(msg),
       duration: Duration(seconds: 3),

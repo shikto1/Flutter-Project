@@ -12,7 +12,7 @@ class DioUtils {
 
   static Dio _dio = Dio();
 
-  static Future<BaseApiResponse> reqeust(url, { method: RequestMethod.GET, formData }) async {
+  static Future<BaseApiResponse> reqeust(String url, { method: RequestMethod.GET, FormData formData }) async {
     try {
       Response response;
       switch (method) {

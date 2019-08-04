@@ -19,7 +19,7 @@ final enabledBorder = OutlineInputBorder(
 );
 
 
-final edgeInsets = EdgeInsets.fromLTRB(16.0, 16.0, 20.0, 16.0);
+final textFieldContentPadding = EdgeInsets.fromLTRB(12.0, 14.0, 16.0, 14.0);
 
 // TEXT STYLE ...........................................
 final TextStyle xxLargeText = TextStyle(fontSize: 24.0);
