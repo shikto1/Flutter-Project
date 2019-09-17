@@ -5,6 +5,8 @@ enum ConfirmAction { CANCEL, ACCEPT }
 
 class AlertService {
 
+  static final sharedInstance = AlertService();
+
   void showToast(BuildContext context, String msg) {
     Toast.show(
       msg,
@@ -22,8 +24,27 @@ class AlertService {
     ));
   }
 
-  Future<void> showAlert(
-      BuildContext context, String title, String message) async {
+
+  void showLoadingDialog(BuildContext context, String loadingMsg) {
+    showDialog(context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              child: Row(
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(width: 20.0),
+                  Text(loadingMsg, style: TextStyle(fontSize: 16.0))
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<void> showAlert(BuildContext context, String title,
+      String message) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -44,10 +65,10 @@ class AlertService {
     );
   }
 
-  Future<ConfirmAction> showConfirmationAlert(
-      BuildContext context, String title, String message,
+  Future<ConfirmAction> showConfirmationAlert(BuildContext context,
+      String title, String message,
       {String negativeBtnText = "CANCEL",
-      String positiveBtnText = "ACCEPT"}) async {
+        String positiveBtnText = "ACCEPT"}) async {
     return showDialog<ConfirmAction>(
       context: context,
       barrierDismissible: false, // user must tap button for close dialog!

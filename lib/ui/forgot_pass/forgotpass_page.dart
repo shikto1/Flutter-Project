@@ -1,6 +1,8 @@
 import 'package:blockpatter/base/BaseState.dart';
 import 'package:blockpatter/values/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:blockpatter/values/colors.dart';
+import 'package:blockpatter/helpers/HexColor.dart';
 
 class ForgotPassPage extends StatefulWidget {
 
@@ -91,7 +93,7 @@ class _ForgotPassPageState extends BaseState<ForgotPassPage> {
   );
 
 
-  Widget _forgotPassBtn() => RaisedButton(
+  final Widget _forgotPassBtn = RaisedButton(
     elevation: 1,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4),
@@ -100,7 +102,7 @@ class _ForgotPassPageState extends BaseState<ForgotPassPage> {
       //loginBtnDidTapped();
     },
     padding: EdgeInsets.all(16),
-    color: Colors.blue,
+    color: HexColor(colorPrimary),
     child: Text('SEND RESET EMAIL',
         style: TextStyle(color: Colors.white, fontSize: 16.0)),
   );
@@ -114,7 +116,7 @@ class _ForgotPassPageState extends BaseState<ForgotPassPage> {
           children: <Widget>[
             _emailField(),
             SizedBox(height: 40),
-            _forgotPassBtn()
+            _forgotPassBtn
           ],
         ));
   }

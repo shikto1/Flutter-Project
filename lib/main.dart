@@ -1,3 +1,4 @@
+import 'package:blockpatter/helpers/HexColor.dart';
 import 'package:blockpatter/ui/forgot_pass/forgotpass_page.dart';
 import 'package:blockpatter/ui/home/home_page.dart';
 import 'package:blockpatter/ui/start/start_page.dart';
@@ -5,6 +6,7 @@ import 'package:blockpatter/ui/login/login_page.dart';
 import 'package:blockpatter/ui/registration/registeration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:blockpatter/values/colors.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,14 +16,15 @@ class MyApp extends StatelessWidget {
 
     // Changing StatusBar Color..................
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.blue));
+        statusBarColor: Colors.grey));
 
     // Crating Material App......................
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: HexColor(colorPrimary),
+        primaryColorDark: HexColor(colorPrimaryDark)
       ),
       initialRoute: StartPage.route, // Use Initial Route or Home. Not both
       routes: {

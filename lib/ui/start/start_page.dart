@@ -1,5 +1,7 @@
 import 'package:blockpatter/ui/login/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:blockpatter/helpers/HexColor.dart';
+import 'package:blockpatter/values/colors.dart';
 
 class StartPage extends StatefulWidget {
 
@@ -21,7 +23,7 @@ class _StartPageState extends State<StartPage> {
             Navigator.pushNamed(context, LoginPage.route);
           },
           padding: EdgeInsets.all(16),
-          color: Colors.blue,
+          color: HexColor(colorPrimary),
           child: Text('USER',
               style: TextStyle(color: Colors.white, fontSize: 16.0)),
         );
@@ -36,7 +38,7 @@ class _StartPageState extends State<StartPage> {
           padding: EdgeInsets.all(16),
           color: Colors.blue,
           child: Text('MERCHANT',
-              style: TextStyle(color: Colors.blue, fontSize: 16.0)),
+              style: TextStyle(color: HexColor(colorPrimary), fontSize: 16.0)),
         );
 
     return Scaffold(

@@ -1,10 +1,13 @@
 import 'package:blockpatter/base/BaseState.dart';
+import 'package:blockpatter/helpers/HexColor.dart';
 import 'package:blockpatter/ui/forgot_pass/forgotpass_page.dart';
 import 'package:blockpatter/ui/home/home_page.dart';
 import 'package:blockpatter/ui/login/login_contract.dart';
 import 'package:blockpatter/ui/registration/registeration_page.dart';
+import 'package:blockpatter/utils/AlertService.dart';
 import 'package:flutter/material.dart';
 import 'package:blockpatter/values/styles.dart';
+import 'package:blockpatter/values/colors.dart';
 
 class LoginPage extends StatefulWidget {
   static const route = "/login-page";
@@ -134,7 +137,7 @@ class _LoginPageState extends BaseState<LoginPage> implements LoginView {
           loginBtnDidTapped();
         },
         padding: EdgeInsets.all(16),
-        color: Colors.blue,
+        color: HexColor(colorPrimary),
         child: Text('LOGIN',
             style: TextStyle(color: Colors.white, fontSize: 16.0)),
       );
@@ -147,9 +150,9 @@ class _LoginPageState extends BaseState<LoginPage> implements LoginView {
           Navigator.pushNamed(context, RegistrationPage.route);
         },
         padding: EdgeInsets.all(16),
-        color: Colors.blue,
+        color: HexColor(colorPrimary),
         child: Text('REGISTER',
-            style: TextStyle(color: Colors.blue, fontSize: 16.0)),
+            style: TextStyle(color: HexColor(colorPrimary), fontSize: 16.0)),
       );
 
   Widget _buildLoginForm() {
@@ -176,19 +179,26 @@ class _LoginPageState extends BaseState<LoginPage> implements LoginView {
             SizedBox(height: 20),
             Container(
               child: Center(
-                child: FlatButton(onPressed: (){
-                  Navigator.pushNamed(context, ForgotPassPage.route);
-                }, child: Text("Forgot Password ?",style: TextStyle(fontSize: 17, color: Colors.grey),)),
+                child: FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ForgotPassPage.route);
+                    },
+                    child: Text(
+                      "Forgot Password ?",
+                      style: TextStyle(fontSize: 17, color: Colors.grey),
+                    )),
               ),
             )
-
           ],
         ));
   }
 
   @override
   void loginBtnDidTapped() {
-    Navigator.pushNamed(context, HomePage.route);
+    AlertService.sharedInstance.showLoadingDialog(context, "Logging in...");
+    // Navigator.pushNamedAndRemoveUntil(context, HomePage.route, (_) => false);
+    // Navigator.pushNamed(context, HomePage.route);
+
 //    final _form = _formKey.currentState;
 //    if (_form.validate()) {
 //      _form.save();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:blockpatter/values/styles.dart';
 import 'package:blockpatter/base/BaseState.dart';
+import 'package:blockpatter/values/colors.dart';
+import 'package:blockpatter/helpers/HexColor.dart';
 
 class RegistrationPage extends StatefulWidget {
   static const route = "/registration-page";
@@ -10,6 +12,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends BaseState<RegistrationPage> {
+
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
@@ -201,7 +204,7 @@ class _RegistrationPageState extends BaseState<RegistrationPage> {
     ),
     onPressed: () {},
     padding: EdgeInsets.all(16),
-    color: Colors.blue,
+    color: HexColor(colorPrimary),
     child: Text('REGISTER',
         style: TextStyle(color: Colors.white, fontSize: 16.0)),
   );
@@ -239,7 +242,7 @@ class _RegistrationPageState extends BaseState<RegistrationPage> {
                       child: Text(
                         "LOGIN",
                         style: TextStyle(
-                            color: Colors.blue,
+                            color: HexColor(colorPrimary),
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ))

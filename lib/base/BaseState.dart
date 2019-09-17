@@ -1,16 +1,20 @@
 import 'package:blockpatter/base/BaseView.dart';
 import 'package:blockpatter/utils/AlertService.dart';
 import 'package:flutter/material.dart';
+import 'package:blockpatter/values/colors.dart';
+import 'package:blockpatter/helpers/HexColor.dart';
 
 abstract class BaseState<T extends StatefulWidget> extends State<T> implements BaseView {
 
   AlertService mAlertService;
   BuildContext buildContext;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var primaryColor;
 
   @override
   void initState() {
     mAlertService = AlertService();
+    primaryColor = HexColor(colorPrimary);
     super.initState();
   }
 

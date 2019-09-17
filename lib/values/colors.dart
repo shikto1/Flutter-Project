@@ -1,4 +1,4 @@
 
 final colorStatusBar = "";
-final colorPrimary = "";
-final colorPrimaryDark = "";
+final colorPrimary = "f05023";
+final colorPrimaryDark = "FFDC461C";

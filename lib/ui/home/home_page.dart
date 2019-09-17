@@ -1,7 +1,7 @@
 import 'package:blockpatter/base/BaseState.dart';
-import 'package:blockpatter/ui/tabs/first_tab.dart';
-import 'package:blockpatter/ui/tabs/second_tab.dart';
-import 'package:blockpatter/ui/tabs/third_tab.dart';
+import 'package:blockpatter/ui/tabs/payment_tab.dart';
+import 'package:blockpatter/ui/tabs/topup_tab.dart';
+import 'package:blockpatter/ui/tabs/account_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,15 +12,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends BaseState<HomePage> {
-  int _selectedIndex = 0;
-  final tabs = [FirstTab(), SecondTab(), ThirdTab()];
+  int _currentIndex = 0;
+  final _tabs = [PaymentTab(), TopUpTab(), AccountTab()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs.elementAt(_selectedIndex),
+      body: _tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
+          currentIndex: _currentIndex,
           onTap: _onTabTapped,
           items: [
             BottomNavigationBarItem(
@@ -35,7 +35,7 @@ class _HomePageState extends BaseState<HomePage> {
 
   void _onTabTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _currentIndex = index;
     });
   }
 }
